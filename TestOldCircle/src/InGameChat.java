@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
@@ -85,6 +86,11 @@ public class InGameChat extends JFrame {
             	networkStartup.InGameChatSendButtonListener(outgoing,incoming);
         }});
 
+
+
+	}
+	
+	public void startDrawingPanelThread(){
 		try{
 			Thread chatThread = new Thread(new DrawingPanel());
 			chatThread.start();
@@ -92,7 +98,6 @@ public class InGameChat extends JFrame {
 		catch(Exception ex){
 			ex.printStackTrace();
 		}
-
 	}
 
 	public void drawFromServer(PlayerMob plyr){
@@ -128,6 +133,9 @@ public class InGameChat extends JFrame {
 					frame.repaint();
 
 				}
+			}catch (NullPointerException ed){
+				System.err.println("for loop null catch");
+				startDrawingPanelThread();
 			}catch(Exception ev){}
 		}
 	}
